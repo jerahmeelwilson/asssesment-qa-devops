@@ -17,6 +17,7 @@ rollbar.log("Hello world!");
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
+  rollbar.info("Page visited");
 });
 
 app.get("/js", (req, res) => {
