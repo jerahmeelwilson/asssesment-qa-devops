@@ -13,11 +13,10 @@ var rollbar = new Rollbar({
   captureUnhandledRejections: true,
 });
 
-rollbar.log("Initated");
+rollbar.log("Hello World");
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
-  rollbar.info("Page visited");
 });
 
 app.get("/js", (req, res) => {
@@ -33,6 +32,7 @@ app.get("/api/robots", (req, res) => {
     res.status(200).send(botsArr);
   } catch (error) {
     console.log("ERROR GETTING BOTS", error);
+    rollbar.error(error);
     res.sendStatus(400);
   }
 });
