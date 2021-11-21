@@ -13,7 +13,7 @@ var rollbar = new Rollbar({
   captureUnhandledRejections: true,
 });
 
-rollbar.log("Hello world!");
+rollbar.log("Initated");
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
