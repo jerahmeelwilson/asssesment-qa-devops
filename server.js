@@ -17,6 +17,7 @@ rollbar.log("Hello World");
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./public/index.html"));
+  rollbar.info("Page loaded");
 });
 
 app.get("/js", (req, res) => {
@@ -33,12 +34,13 @@ app.get("/api/robots", (req, res) => {
   } catch (error) {
     let ERROR = error;
     console.log("ERROR GETTING BOTS", error);
-    Rollbar.error(ERROR);
+    rollbar.error(ERROR);
     res.sendStatus(400);
   }
 });
 
 app.get("/api/robots/five", (req, res) => {
+  rollbar.info("Player chosing bots");
   try {
     let shuffled = shuffleArray(bots);
     let choices = shuffled.slice(0, 5);
@@ -46,11 +48,14 @@ app.get("/api/robots/five", (req, res) => {
     res.status(200).send({ choices, compDuo });
   } catch (error) {
     console.log("ERROR GETTING FIVE BOTS", error);
+    let ERROR = error;
+    rollbar.error(ERROR);
     res.sendStatus(400);
   }
 });
 
 app.post("/api/duel", (req, res) => {
+  rollbar.info("Duel iniated");
   try {
     // getting the duos from the front end
     let { compDuo, playerDuo } = req.body;
@@ -84,6 +89,8 @@ app.post("/api/duel", (req, res) => {
       res.status(200).send("You won!");
     }
   } catch (error) {
+    let ERROR = error;
+    rollbar.error(ERROR);
     console.log("ERROR DUELING", error);
     res.sendStatus(400);
   }
@@ -94,6 +101,8 @@ app.get("/api/player", (req, res) => {
     res.status(200).send(playerRecord);
   } catch (error) {
     console.log("ERROR GETTING PLAYER STATS", error);
+    let ERROR = error;
+    rollbar.error(ERROR);
     res.sendStatus(400);
   }
 });
