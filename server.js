@@ -32,7 +32,7 @@ app.get("/api/robots", (req, res) => {
     res.status(200).send(botsArr);
   } catch (error) {
     console.log("ERROR GETTING BOTS", error);
-    rollbar.error(error);
+    Rollbar.error(error);
     res.sendStatus(400);
   }
 });
